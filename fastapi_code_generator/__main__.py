@@ -155,6 +155,11 @@ def generate_code(
         modules = {output: ("", input_name)}
     elif isinstance(models, str):
         modules = {output: (models, input_name)}
+    elif isinstance(models, dict):
+        output = output_dir / "models"
+        modules = {}
+        for path in models:
+            modules.update({output / path[0]: (models[path].body, input_name)})
     else:
         raise Exception('Modular references are not supported in this version')
 
